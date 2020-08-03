@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+</head>
+<style>
+    form
+    {
+    text-align:center;
+    padding : 5% 30%;
+    font-size:15px;
+    display:inline-block;
+    margin :20px 0;
+
+    }
+        input[type=text],input[type=date]
+        {
+        width:auto;
+        padding : 2px;
+        margin : 10px 0;
+        display : inline-block;
+        border:1px solid black;
+        box-sizing : border-box;
+        }
+        a,input[type=submit]
+        {
+        background-color : rgb(88, 88, 92);
+        color : white;
+        padding: 10px ;
+        text-decoration: none;
+        border :black;
+        cursor : pointer;
+        width :auto;
+
+        }
+        input[type=submit]:hover
+        {opacity:0.5;}
+
+
+</style>
+<body>
+    
+<form action="" method="post">
+    {% csrf_token %}
+    Consignment number <input type="text" autofocus name="Searchno" >
+    <input name="search" type="submit" value="Search">
+    <a href="index" name="back" >Back</a><br><br>
+    {% for src in srch %}
+    {% if src.conno == mfno %}
+    <div id="srchdetails">
+   Manifest Number<input type="text" value="{{src.mfno}}"style="color: red;">
+   Recieved Date<input type="text" value=" {{src.date}}"style="color: red;"><br>
+    Consignment Number<input type="text" value=" {{src.conno}}"style="color: red;">
+    Pcs<input type="text" value=" {{src.pcs}}"style="color: red;"><br>
+    Wt<input type="text" value=" {{src.wt}}"style="color: red;">
+    </div>
+    
+    
+    {% endif %}
+   
+    {% endfor %}
+    
+</form>
+</body>
+</html>

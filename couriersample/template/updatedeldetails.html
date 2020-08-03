@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+</head>
+<style>
+    form
+    {
+    text-align:center;
+    padding : 5% 30%;
+    font-size:15px;
+    display:inline-block;
+    margin :20px 0;
+
+    }
+        input[type=text],input[type=date]
+        {
+        width:auto;
+        padding : 2px;
+        margin : 10px 0;
+        display : inline-block;
+        border:1px solid black;
+        box-sizing : border-box;
+        }
+        a,input[type=submit]
+        {
+        background-color : rgb(88, 88, 92);
+        color : white;
+        padding: 10px ;
+        text-decoration: none;
+        border :black;
+        cursor : pointer;
+        width :auto;
+
+        }
+        input[type=submit]:hover
+        {opacity:0.5;}
+
+
+</style>
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script>
+    $(function()
+    {
+    $("#getdate").datepicker(
+    {
+    changeMonth:true,
+    changeYear:true
+    }).datepicker("setDate","0");
+    });
+</script>
+    
+<form action="" method="post">
+    {% csrf_token %}
+    Consignment number <input type="text" autofocus name="updatecon" >
+    <input name="search" type="submit" value="Search">
+    <a href="/" name="back" >Back</a><br><br>
+    {% for src in recs %}
+    {% if src.conno == srch %}
+    <div id="srchdetails">
+        Consignment Number<input type="text" name="con" value="{{src.conno}}"><br>
+ Manifest Number<input type="text" value="{{src.mfno}}"style="color: red;">
+   Recieved Date<input type="text" value=" {{src.date}}"style="color: red;"><br>
+    Consignment Number<input type="text" value=" {{src.conno}}"style="color: red;">
+    Pcs<input type="text" value=" {{src.pcs}}"style="color: red;"><br>
+    Wt<input type="text" value=" {{src.wt}}"style="color: red;">
+    </div>
+    Delivered Date<input type="date" name="deldate" id="getdate" >
+    Recieved By <input type="text" name="recby">
+    <input type="submit" value="Update" name="update">
+    {% endif %}
+    {% endfor %}
+    {% for mes in messages %}
+    {{mes}}
+    {% endfor %}
+</form>
+</body>
+</html>
